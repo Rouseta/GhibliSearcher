@@ -1,0 +1,81 @@
+body {
+  background-color: #fcedf0;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.header {
+  text-align: center;
+}
+
+.search {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.search-button {
+  margin-right: 12px;
+}
+
+.search-input {
+  margin-right: 12px;
+}
+
+.movie-card {
+  margin-bottom: 2rem;
+}
+
+.movie-image {
+  width: 500px;
+  border-radius: 8px;
+}
+.movie-info {
+  justify-content: center;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: start;
+  gap: 10px;
+}
+
+.movie-description-closed {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+.movie-description-opened {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 8px;
+}
+.card-button {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.no-results {
+  font-size: 24px;
+  font-weight: 500;
+  text-decoration: wavy;
+}
+.fav-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: start;
+  gap: 10px;
+}
+.fav-button {
+  margin-left: 12px;
+}
