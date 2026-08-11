@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 import MovieCard from './components/MovieCard';
 import { FaHeart } from 'react-icons/fa';
-
+import MovieModal from './components/MovieModal';
 import './App.css';
 
 function App() {
   const [search, setSearch] = useState('');
   const [movies, setMovies] = useState([]);
   const [sortOrder, setSortOrder] = useState('');
-  const [favorites, setFavorites] =
-    useState(() => JSON.parse(localStorage.getItem('fav'))) || [];
+
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [favorites, setFavorites] = useState(
+    () => JSON.parse(localStorage.getItem('fav')) || [],
+  );
   const [showFavorites, setShowFavorites] = useState(false);
   const showFavText = showFavorites ? 'Ver todas' : 'Ver favoritas';
   const filteredMovies = movies.filter(
@@ -68,57 +71,68 @@ function App() {
   useEffect(() => {
     localStorage.setItem('fav', JSON.stringify(favorites));
   }, [favorites]);
+  console.log('seleccionada:', selectedMovie);
   return (
-    <div className="app">
-      <div className="header">
-        <h1>Busca tu pelicula Ghibli favorita 🎬</h1>
-        <p>
-          Encuentra toda la informacion, sinopsis, director y muchas cosas mas!
-        </p>
-      </div>
-
-      <div className="search">
-        <input
-          className="search-input"
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+    <>
+      {selectedMovie && (
+        <MovieModal
+          movie={selectedMovie}
+          onClose={() => setSelectedMovie(null)}
         />
+      )}
+      <div className="app">
+        <div className="header">
+          <h1>Busca tu pelicula Ghibli favorita 🎬</h1>
+          <p>
+            Encuentra toda la informacion, sinopsis, director y muchas cosas
+            mas!
+          </p>
+        </div>
 
-        {movies !== '' && (
-          <select
-            value={sortOrder}
-            onChange={(e) => setSortOrder(e.target.value)}
+        <div className="search">
+          <input
+            className="search-input"
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
+          {movies !== '' && (
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+            >
+              <option value="">Sin ordenar</option>
+              <option value="asc">Más antiguas primero</option>
+              <option value="desc">Más recientes primero</option>
+            </select>
+          )}
+          <button
+            className="fav-button"
+            onClick={() => setShowFavorites(!showFavorites)}
           >
-            <option value="">Sin ordenar</option>
-            <option value="asc">Más antiguas primero</option>
-            <option value="desc">Más recientes primero</option>
-          </select>
-        )}
-        <button
-          className="fav-button"
-          onClick={() => setShowFavorites(!showFavorites)}
-        >
-          <FaHeart color="red" /> {showFavText}
-        </button>
-      </div>
+            <FaHeart color="red" /> {showFavText}
+          </button>
+        </div>
 
-      {movies.length > 0 &&
-        (filteredMovies.length > 0 ? (
-          <div className="movie-grid">
-            {displayedMovies.map((movie) => (
-              <MovieCard
-                favorites={favorites}
-                key={movie.id}
-                movie={movie}
-                toggleFavorite={toggleFavorite}
-              />
-            ))}
-          </div>
-        ) : (
-          <>{noResults}</>
-        ))}
-    </div>
+        {movies.length > 0 &&
+          (filteredMovies.length > 0 ? (
+            <div className="movie-grid">
+              {displayedMovies.map((movie) => (
+                <MovieCard
+                  onOpenModal={setSelectedMovie}
+                  favorites={favorites}
+                  key={movie.id}
+                  movie={movie}
+                  toggleFavorite={toggleFavorite}
+                />
+              ))}
+            </div>
+          ) : (
+            <>{noResults}</>
+          ))}
+      </div>
+    </>
   );
 }
 

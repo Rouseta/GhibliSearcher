@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FaHeart } from 'react-icons/fa';
 import { FaRegHeart } from 'react-icons/fa';
 
-const MovieCard = ({ movie, favorites, toggleFavorite }) => {
+const MovieCard = ({ movie, favorites, toggleFavorite, onOpenModal }) => {
   const [IsExpanded, setIsExpanded] = useState(true);
 
   const buttonText = IsExpanded ? 'Leer mas' : 'Leer menos';
@@ -13,7 +13,11 @@ const MovieCard = ({ movie, favorites, toggleFavorite }) => {
   const cuoreFav = isFavorite ? <FaHeart color="red" /> : <FaRegHeart />;
 
   return (
-    <div className="movie-card" key={movie.id}>
+    <div
+      className="movie-card"
+      key={movie.id}
+      onClick={() => onOpenModal(movie)}
+    >
       <h1>{movie.title}</h1>
 
       <img className="movie-image" src={movie.movie_banner} alt={movie.title} />
