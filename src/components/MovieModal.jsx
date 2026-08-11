@@ -1,19 +1,22 @@
 const MovieModal = ({ movie, onClose }) => {
+  const trailerId = 'oTUush1wXL0';
+  const URLYoutube = `https://www.youtube.com/embed/${trailerId};`;
   return (
-    <div
-      style={{
-        position: 'fixed',
-        borderRadius: 8,
-        zIndex: 9999,
-        background: '#B3EBF2',
-        color: '#2E6C7B',
-
-        padding: '30px',
-      }}
-    >
-      <h1>{movie.title}</h1>
-      <button onClick={onClose}>Cerrar</button>
+    <div className="modal-overlay">
+      {/* <div className="modal-content"> */}
+      <iframe
+        className="modal-video"
+        src={URLYoutube}
+        title={`Tráiler de ${movie.title}`}
+        allow="fullscreen"
+        onClick={onClose}
+      />
+      <button className="modal-close" onClick={onClose}>
+        X
+      </button>
+      {/* </div> */}
     </div>
   );
 };
+
 export default MovieModal;
