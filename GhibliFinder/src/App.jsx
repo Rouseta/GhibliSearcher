@@ -1,4 +1,4 @@
-git import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import MovieCard from './components/MovieCard';
 import { FaHeart } from 'react-icons/fa';
 import MovieModal from './components/MovieModal';
