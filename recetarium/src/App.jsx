@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { GiMeal } from 'react-icons/gi';
 import { Navbar } from './components/Navbar';
-
+import AppRoutes from './routes/AppRoutes';
 import './App.css';
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
         <GiMeal className="bg-pink-500 rounded-full p-2 text-white text-4xl" />
       </div>
       <Navbar />
+      <AppRoutes />
     </>
   );
 }
